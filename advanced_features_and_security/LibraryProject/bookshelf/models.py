@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
 
+from django import forms
+
 # Create your models here.
 
 # class Book(models.Model):
@@ -61,3 +63,8 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
 
         return self.create_user(username, email, date_of_birth, password, **extra_fields)
+
+
+
+class BookSearchForm(forms.Form):
+    query = forms.CharField(max_length=100)
