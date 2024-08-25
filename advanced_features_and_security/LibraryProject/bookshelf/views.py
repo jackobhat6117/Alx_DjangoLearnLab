@@ -38,3 +38,22 @@ def my_view(request):
     response = HttpResponse("Content")
     response['Content-Security-Policy'] = "default-src 'self'; script-src 'self' https://trustedscripts.com"
     return response
+
+from django.shortcuts import render
+from .forms import ExampleForm
+
+# Example view using the ExampleForm
+def example_view(request):
+    if request.method == 'POST':
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            # Process the form data
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            # Add your logic here (e.g., saving data or sending an email)
+            return render(request, 'bookshelf/success.html', {'name': name})
+    else:
+        form = ExampleForm()
+
+    return render(request, 'bookshelf/example_form.html', {'form': form})
