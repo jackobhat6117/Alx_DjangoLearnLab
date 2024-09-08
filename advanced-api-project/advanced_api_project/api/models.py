@@ -19,8 +19,4 @@ class Book(models.Model):
     author = models.ForeignKey(Author, related_name='books', on_delete=models.CASCADE)
 
     def __str__(self):
-<<<<<<< HEAD
         return self.title
-=======
-        return self.title
->>>>>>> d228485 (adding project advanced-api-project)
