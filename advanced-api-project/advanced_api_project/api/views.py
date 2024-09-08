@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from rest_framework import generics
 from .models import Book
 from .serializers import BookSerializer
@@ -39,3 +40,8 @@ class BookDeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
+=======
+from django.shortcuts import render
+
+# Create your views here.
+>>>>>>> d228485 (adding project advanced-api-project)
