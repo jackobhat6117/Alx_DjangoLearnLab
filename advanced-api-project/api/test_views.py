@@ -1,16 +1,16 @@
 from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework import status
+from django.contrib.auth.models import User
 from .models import Book, Author
 from .serializers import BookSerializer
-from django.contrib.auth.models import User
 
 class BookAPITestCase(TestCase):
     def setUp(self):
         # Create test data
         self.client = APIClient()
         self.user = User.objects.create_user(username='testuser', password='testpassword')
-        self.client.force_authenticate(user=self.user)
+        self.client.login(username='testuser', password='testpassword')  # Use login for authentication
         
         self.author = Author.objects.create(name='Test Author')
         self.book = Book.objects.create(
