@@ -60,3 +60,20 @@ This Django project provides an API for managing authors and books, built with D
    ```bash
    git clone https://github.com/yourusername/Alx_DjangoLearnLab.git
    cd Alx_DjangoLearnLab/advanced-api-project
+
+
+## Testing Overview
+
+### Test Cases
+1. **Create Book**: Verifies that a book can be created successfully.
+2. **Update Book**: Ensures that book updates are correctly applied.
+3. **Delete Book**: Checks that a book is deleted properly.
+4. **Filter Books**: Tests filtering functionality by title.
+5. **Search Books**: Verifies search functionality.
+6. **Ordering Books**: Checks that ordering by publication year works as expected.
+7. **Permission**: Ensures that unauthenticated users cannot create books.
+
+### Running Tests
+Execute tests using Django’s test management command:
+```bash
+python manage.py test api
