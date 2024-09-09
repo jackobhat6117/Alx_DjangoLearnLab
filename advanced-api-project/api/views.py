@@ -1,32 +1,40 @@
-from rest_framework import generics, permissions
+from rest_framework import generics
 from .models import Book
 from .serializers import BookSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-# List view for retrieving all books
-class BookListView(generics.ListAPIView):
+# ListView: Retrieve all books and CreateView: Add a new book
+
+
+
+class BookListView(generics.ListCreateAPIView):
+    """
+    Handles listing all books and creating new ones.
+    Only authenticated users can create books, while unauthenticated users can view them.
+    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-# Detail view for retrieving a single book by ID
+
+    def perform_create(self, serializer):
+        # Custom logic during book creation (if needed)
+        serializer.save()
+
+# DetailView: Retrieve a single book by ID
 class BookDetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    lookup_field = 'pk'
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-# Create view for adding a new book
-class BookCreateView(generics.CreateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Restrict access to authenticated users
-
-# Update view for modifying an existing book
+# UpdateView: Modify an existing book
 class BookUpdateView(generics.UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Restrict access to authenticated users
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-# Delete view for removing a book
+# DeleteView: Remove a book
 class BookDeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Restrict access to authenticated users
+    permission_classes = [IsAuthenticatedOrReadOnly]
