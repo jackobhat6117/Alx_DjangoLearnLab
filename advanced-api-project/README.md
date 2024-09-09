@@ -46,3 +46,17 @@ A Django project with Django REST Framework (DRF) for managing `Author` and `Boo
 - **Permissions**: Authenticated users can create, update, and delete; unauthenticated users can only view.
 
 ---
+
+# Advanced API Project
+
+## Overview
+
+This Django project provides an API for managing authors and books, built with Django REST Framework (DRF). It includes advanced query capabilities such as filtering, searching, and ordering to enhance API consumer interactions.
+
+## Setup Instructions
+
+1. **Clone the Repository**:
+
+   ```bash
+   git clone https://github.com/yourusername/Alx_DjangoLearnLab.git
+   cd Alx_DjangoLearnLab/advanced-api-project
