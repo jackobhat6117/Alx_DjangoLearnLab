@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages, PostForm, CommentForm
-from .forms import CustomUserCreationForm
+from django.contrib import messages
+from .forms import CustomUserCreationForm,PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Comment
 from django.shortcuts import render, get_object_or_404, redirect
-
+from django.db.models import Q
 
 
 
@@ -125,6 +125,18 @@ def CommentDeleteView(request, pk):
 
 
 
+
+def search_posts(request):
+    query = request.GET.get('q')
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) | 
+            Q(content__icontains=query) | 
+            Q(tags__name__icontains=query)
+        ).distinct()
+    else:
+        results = Post.objects.none()
+    return render(request, 'blog/search_results.html', {'results': results, 'query': query})
 
 
 
