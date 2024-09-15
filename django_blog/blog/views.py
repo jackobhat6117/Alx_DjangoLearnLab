@@ -125,7 +125,6 @@ def CommentDeleteView(request, pk):
 
 
 
-
 def search_posts(request):
     query = request.GET.get('q')
     if query:
@@ -142,9 +141,11 @@ def search_posts(request):
 
 
 
+from taggit.models import Tag
 
-
-
+def posts_by_tag(request, tag):
+    posts = Post.objects.filter(tags__name__in=[tag])
+    return render(request, 'blog/posts_by_tag.html', {'posts': posts, 'tag': tag})
 
 
 
