@@ -1,13 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import permissions
 from .serializers import RegisterSerializer, LoginSerializer
 from rest_framework import status, generics
 from .models import CustomUser
 
 class RegisterView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         serializer = RegisterSerializer(data = request.data)
@@ -17,7 +17,7 @@ class RegisterView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [permissions.AllowAny]
 
 
     def post(self, request):
@@ -49,7 +49,7 @@ class LoginView(APIView):
 #         return Response({"detail": "Successfully unFollowed."}, status=status.HTTP_200_OK)
 
 class FollowUserView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = CustomUser.objects.all()
 
     def post(self, request, user_id):
@@ -64,7 +64,7 @@ class FollowUserView(generics.GenericAPIView):
 
 
 class UnfollowUserView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.isIsAuthenticated]
     queryset = CustomUser.objects.all()
 
     def post(self, request, user_id):
