@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from notifications.models import Notification
 from rest_framework import status
-from rest_framework.generics import get_object_or_404
+from rest_framework import generics
 
 
 
@@ -87,14 +87,12 @@ class UserFeedView(APIView):
 #             return Response({'error': 'Post not found.'}, status=status.HTTP_404_NOT_FOUND)
 
 
-from .models import Post, Like
-from notifications.models import Notification
 
 class LikePostView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)
+        post = generics.get_object_or_404(Post, pk=pk)
         like, created = Like.objects.get_or_create(user=request.user, post=post)
         
         if created:
@@ -113,7 +111,7 @@ class UnlikePostView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)
+        post = generics.get_object_or_404(Post, pk=pk)
         like = Like.objects.filter(user=request.user, post=post)
         
         if like.exists():
