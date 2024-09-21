@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import authenticate
 
 # Get the user model
 User = get_user_model()
