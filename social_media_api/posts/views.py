@@ -29,8 +29,8 @@ class UserFeedView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        following_user = request.user.following.all()
-        posts = Post.objects.filter(author__in = following_user).order_by('-created_at')
+        following_users = request.user.following.all()
+        posts = Post.objects.filter(author__in = following_users).order_by('-created_at')
 
         posts = posts[:50]
 
