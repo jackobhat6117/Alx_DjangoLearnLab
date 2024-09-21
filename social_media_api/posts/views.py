@@ -25,14 +25,17 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 
 class UserFeedView(APIView):
-
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
+        # Get the users that the current user is following
         following_users = request.user.following.all()
-        posts = Post.objects.filter(author__in = following_users).order_by('-created_at')
 
-        posts = posts[:50]
-
-        serializer = PostSerializer(posts, many = True)
+        # Query posts from followed users, ordered by creation date (most recent first)
+        posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
+        
+        # Serialize the posts data
+        serializer = PostSerializer(posts, many=True)
+        
+        # Return the serialized data in the response
         return response.Response(serializer.data)
